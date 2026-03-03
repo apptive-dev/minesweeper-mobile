@@ -1,0 +1,31 @@
+minesweeper-mobile/
+│
+├── app/
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── classic.tsx
+│   ├── levels.tsx
+│   ├── challenge.tsx
+│   ├── settings.tsx
+│   ├── premium.tsx
+│
+├── components/
+│   ├── Board.tsx
+│   ├── Cell.tsx
+│   ├── Header.tsx
+│   ├── Paywall.tsx
+│
+├── context/
+│   ├── GameContext.tsx
+│
+├── utils/
+│   ├── generateBoard.ts
+│
+├── assets/
+│   ├── icon.png
+│   ├── splash.png
+│
+├── app.json
+├── package.json
+├── tsconfig.json
+└── eas.json
