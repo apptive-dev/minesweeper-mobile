@@ -1,0 +1,36 @@
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import Cell from "./Cell";
+import { generateBoard, CellType } from "../utils/generateBoard";
+
+export default function Board({ rows, cols, mines }: any) {
+  const [board, setBoard] = useState<CellType[][]>(
+    generateBoard(rows, cols, mines)
+  );
+
+  const revealCell = (r: number, c: number) => {
+    const newBoard = [...board];
+    if (newBoard[r][c].mine) {
+      alert("💥 Game Over");
+      return;
+    }
+    newBoard[r][c].revealed = true;
+    setBoard(newBoard);
+  };
+
+  return (
+    <View>
+      {board.map((row, r) => (
+        <View key={r} style={styles.row}>
+          {row.map((cell, c) => (
+            <Cell key={c} cell={cell} onPress={() => revealCell(r, c)} />
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { flexDirection: "row" }
+});
