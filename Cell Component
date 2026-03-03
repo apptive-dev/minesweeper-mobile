@@ -1,0 +1,25 @@
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { CellType } from "../utils/generateBoard";
+
+export default function Cell({ cell, onPress }: any) {
+  return (
+    <TouchableOpacity style={styles.cell} onPress={onPress}>
+      {cell.revealed && (
+        <Text>
+          {cell.mine ? "💣" : cell.adjacent !== 0 ? cell.adjacent : ""}
+        </Text>
+      )}
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  cell: {
+    width: 32,
+    height: 32,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
