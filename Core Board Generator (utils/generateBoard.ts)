@@ -1,0 +1,51 @@
+export type CellType = {
+  revealed: boolean;
+  mine: boolean;
+  flagged: boolean;
+  adjacent: number;
+};
+
+export const generateBoard = (rows: number, cols: number, mines: number) => {
+  let board: CellType[][] = [];
+
+  for (let r = 0; r < rows; r++) {
+    let row: CellType[] = [];
+    for (let c = 0; c < cols; c++) {
+      row.push({ revealed: false, mine: false, flagged: false, adjacent: 0 });
+    }
+    board.push(row);
+  }
+
+  let placed = 0;
+  while (placed < mines) {
+    const r = Math.floor(Math.random() * rows);
+    const c = Math.floor(Math.random() * cols);
+    if (!board[r][c].mine) {
+      board[r][c].mine = true;
+      placed++;
+    }
+  }
+
+  const directions = [-1, 0, 1];
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (board[r][c].mine) continue;
+      let count = 0;
+      directions.forEach(dr =>
+        directions.forEach(dc => {
+          const nr = r + dr;
+          const nc = c + dc;
+          if (
+            nr >= 0 && nr < rows &&
+            nc >= 0 && nc < cols &&
+            board[nr][nc].mine
+          ) count++;
+        })
+      );
+      board[r][c].adjacent = count;
+    }
+  }
+
+  return board;
+};
